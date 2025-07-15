@@ -20,8 +20,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Bước 2: Chạy một lệnh kiểm tra đơn giản
+      # Bước 2: Bước build
       - name: Run build step
         run: |
           echo "✅ Workflow đang chạy trên nhánh: $GITHUB_REF"
-          echo "👉 Bạn có thể thêm các lệnh build/test của ngôn ngữ bạn đang dùng tại đây."
+          echo "🔧 Đang thực hiện build (giả lập)..."
+          # Tại đây bạn có thể thêm lệnh build thực tế, ví dụ:
+          # gcc main.c -o main
+          # ./main
+
+      # Bước 3: Bước test
+      - name: Run test step
+        run: |
+          echo "🧪 Đang chạy test..."
+          # Thêm lệnh test thực tế của bạn ở đây, ví dụ:
+          # ./main --test
+          # pytest
+          echo "✅ Test hoàn thành!"
