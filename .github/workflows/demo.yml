@@ -1,4 +1,4 @@
-name: demo
+name: Node.js CI
 
 on:
   push:
@@ -20,18 +20,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Cài đặt trình biên dịch (Ubuntu có sẵn gcc nhưng ta cài cho chắc)
-      - name: Install GCC
-        run: sudo apt-get update && sudo apt-get install -y build-essential
+      # 2. Thiết lập Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'   # Chọn version Node.js bạn dùng
+          cache: 'npm'         # Cache npm để tăng tốc build
 
-      # 3. Build (biên dịch main.c thành file thực thi main)
+      # 3. Cài đặt dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Chạy build (nếu project của bạn có script build)
       - name: Build
-        run: |
-          echo "🔧 Đang biên dịch code C..."
-          gcc main.c -o main
+        run: npm run build --if-present
 
-      # 4. Test (chạy file vừa build ra)
+      # 5. Chạy test
       - name: Run tests
-        run: |
-          echo "🧪 Đang chạy test..."
-          ./main
+        run: npm test
