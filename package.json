@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "test": "echo \"✅ Test chạy thành công!\" && exit 0",
-  "build": "echo \"🔧 Build ok!\" && exit 0"
-},
+    "test": "jest --verbose",
+    "build": "echo \"🔧 Build step (nếu có)\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "jest": "^30.0.4"
+  }
 }
