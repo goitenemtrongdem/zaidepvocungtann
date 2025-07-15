@@ -6,7 +6,7 @@ on:
       - main
       - develop
       - cicd
-      - update  # tất cả nhánh bắt đầu bằng feature/
+      - update
   pull_request:
     branches:
       - main
@@ -14,17 +14,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      # Bước 1: Lấy code từ repo
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
+      # Bước 2: Chạy một lệnh kiểm tra đơn giản
+      - name: Run build step
+        run: |
+          echo "✅ Workflow đang chạy trên nhánh: $GITHUB_REF"
+          echo "👉 Bạn có thể thêm các lệnh build/test của ngôn ngữ bạn đang dùng tại đây."
