@@ -12,28 +12,26 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      # Bước 1: Lấy code từ repo
+      # 1. Lấy code từ repo
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Bước 2: Bước build
-      - name: Run build step
-        run: |
-          echo "✅ Workflow đang chạy trên nhánh: $GITHUB_REF"
-          echo "🔧 Đang thực hiện build (giả lập)..."
-          # Tại đây bạn có thể thêm lệnh build thực tế, ví dụ:
-          # gcc main.c -o main
-          # ./main
+      # 2. Cài đặt trình biên dịch (Ubuntu có sẵn gcc nhưng ta cài cho chắc)
+      - name: Install GCC
+        run: sudo apt-get update && sudo apt-get install -y build-essential
 
-      # Bước 3: Bước test
-      - name: Run test step
+      # 3. Build (biên dịch main.c thành file thực thi main)
+      - name: Build
+        run: |
+          echo "🔧 Đang biên dịch code C..."
+          gcc main.c -o main
+
+      # 4. Test (chạy file vừa build ra)
+      - name: Run tests
         run: |
           echo "🧪 Đang chạy test..."
-          # Thêm lệnh test thực tế của bạn ở đây, ví dụ:
-          # ./main --test
-          # pytest
-          echo "✅ Test hoàn thành!"
+          ./main
